@@ -10,38 +10,55 @@
     <div class="tasks-container">
 
         {% for task in tasks %}
+
             <div class="task">
 
-                <p class="task-title {% if task.done %}completed{% endif %}">
-                    Title: {{ task.title }}
-                </p>
+                <div class="task-header">
 
-                <p>
-                    <strong>Description:</strong>
-                    {{ task.description }}
-                </p>
+                    <p class="task-title {% if task.done %}completed{% endif %}">
+                        {{ task.title }}
+                    </p>
 
-                <p>
-                    <strong>Created at:</strong>
-                    {{ task.created_at }}
-                </p>
+                    <div class="task-actions">
+                        <a href="#" class="edit-btn">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="delete-btn">Delete</a>
+                    </div>
 
-                <p>
-                    <strong>Priority:</strong>
-                    {{ task.priority }}
-                </p>
+                </div>
 
-                <p>
-                    <strong>Status:</strong>
+                <div class="task-info">
 
-                    {% if task.done %}
-                        Done
-                    {% else %}
-                        Not done
-                    {% endif %}
-                </p>
+                    <div class="info-item description-item">
+                        <span>Description</span>
+                        <p>{{ task.description }}</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Created</span>
+                        <p>{{ task.created_at }}</p>
+                    </div>
+
+                    <div class="info-item priority-{{ task.priority }}">
+                        <span>Priority</span>
+                        <p>{{ task.priority }}</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Status</span>
+
+                        <p>
+                            {% if task.done %}
+                                Done
+                            {% else %}
+                                Not Done
+                            {% endif %}
+                        </p>
+                    </div>
+
+                </div>
 
             </div>
+
         {% endfor %}
 
     </div>

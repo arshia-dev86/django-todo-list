@@ -4,62 +4,356 @@
     box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 30px;
-    color: #333;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2b2b2b;
+    color: #e5e5e5;
 }
 
+/* Navbar */
+
 nav {
-    background-color: #333;
-    padding: 15px 40px;
-    display: flex;
-    gap: 20px;
+    background-color: #333333;
+    padding: 20px 40px;
+    border-bottom: 1px solid #444;
 }
 
 nav a {
-    color: white;
+    margin-right: 25px;
+    color: #b5b5b5;
     text-decoration: none;
     font-size: 16px;
-    transition: 0.3s;
 }
 
 nav a:hover {
-    color: #00bcd4;
+    color: #ffffff;
 }
 
+/* Page Title */
+
+h1 {
+    max-width: 900px;
+    margin: 40px auto 25px;
+    padding: 0 20px;
+    font-size: 28px;
+    color: #ffffff;
+}
+
+/* Tasks */
+
 .tasks-container {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    padding: 0 20px 40px;
 }
 
 .task {
-    background-color: #f5f5f5;
+    background-color: #363636;
+    border: 1px solid #444;
+    border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border-left: 5px solid #00bcd4;
-    transition: 0.3s;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
 }
 
 .task:hover {
-    transform: translateY(-3px);
+    transform: scale(1.02);
 }
 
-.task p {
-    color: #666;
-    margin-bottom: 10px;
+/* Task Header */
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 18px;
 }
+
+/* Task Title */
 
 .task-title {
     font-size: 22px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
+    color: #ffffff;
 }
 
 .task-title.completed {
     text-decoration: line-through;
-    opacity: 0.6;
+    opacity: 0.5;
+}
+
+/* Edit & Delete Buttons */
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.task-actions a {
+    padding: 7px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.edit-btn {
+    background-color: #4a5568;
+    color: #ffffff;
+}
+
+.delete-btn {
+    background-color: #b94343;
+    color: #ffffff;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
+/* Task Information */
+
+.task-info {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    background-color: #404040;
+    padding: 10px 14px;
+    border-radius: 6px;
+    min-width: 0;
+    flex: 1;
+}
+
+.info-item span {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.info-item p {
+    color: #e5e5e5;
+    font-size: 14px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Description */
+
+.description-item {
+    flex-basis: 100%;
+}
+
+/* Priority */
+
+.priority-low {
+    border-left: 3px solid #4caf50;
+}
+
+.priority-low p {
+    color: #6ee77a;
+}
+
+.priority-medium {
+    border-left: 3px solid #f0b429;
+}
+
+.priority-medium p {
+    color: #ffd166;
+}
+
+.priority-high {
+    border-left: 3px solid #e05252;
+}
+
+.priority-high p {
+    color: #ff7b7b;
+}
+
+/* Add Task Form */
+
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 70px auto;
+    padding: 30px;
+    background-color: #363636;
+    border: 1px solid #4a4a4a;
+    border-radius: 10px;
+}
+
+.form-container h1 {
+    margin: 0 0 30px;
+    padding: 0;
+    text-align: left;
+    font-size: 26px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c5c5c5;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    background-color: #424242;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #777;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-group input {
+    width: auto;
+}
+
+.checkbox-group label {
+    margin: 0;
+}
+
+.add-task-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #e5e5e5;
+    color: #222;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.add-task-btn:hover {
+    background-color: #ffffff;
+}
+
+.task-actions a {
+    transition: transform 0.2s ease;
+}
+
+.task-actions:has(.edit-btn:hover) .edit-btn {
+    transform: scale(1.1);
+}
+
+.task-actions:has(.edit-btn:hover) .delete-btn {
+    transform: scale(0.9);
+}
+
+.task-actions:has(.delete-btn:hover) .delete-btn {
+    transform: scale(1.1);
+}
+
+.task-actions:has(.delete-btn:hover) .edit-btn {
+    transform: scale(0.9);
+}
+/* Delete Task */
+
+.delete-container {
+    max-width: 600px;
+}
+
+.delete-message {
+    color: #c5c5c5;
+    margin-bottom: 20px;
+}
+
+/* Task information */
+
+.delete-task-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.delete-info-item {
+    background-color: #404040;
+    padding: 12px;
+    border-radius: 6px;
+    min-width: 0;
+    flex: 1;
+}
+
+.delete-info-item span {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 6px;
+}
+
+.delete-info-item p {
+    color: #e5e5e5;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}
+
+/* Description takes full width */
+
+.delete-info-item:nth-child(2) {
+    flex-basis: 100%;
+}
+
+/* Delete buttons */
+
+.delete-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn,
+.confirm-delete-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #4a4a4a;
+    color: #ffffff;
+}
+
+.confirm-delete-btn {
+    background-color: #b94343;
+    color: #ffffff;
+}
+
+.cancel-btn:hover,
+.confirm-delete-btn:hover {
+    opacity: 0.8;
 }
