@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    My tasks
+    My Tasks
 {% endblock %}
 
 {% block content %}
@@ -9,15 +9,40 @@
 
     <div class="tasks-container">
 
-        <div class="task">
-            <h3>Learn Django</h3>
-            <p>Complete Django Todo List project</p>
-        </div>
+        {% for task in tasks %}
+            <div class="task">
 
-        <div class="task">
-            <h3>Learn Models</h3>
-            <p>Practice creating models in Django</p>
-        </div>
+                <p class="task-title {% if task.done %}completed{% endif %}">
+                    Title: {{ task.title }}
+                </p>
+
+                <p>
+                    <strong>Description:</strong>
+                    {{ task.description }}
+                </p>
+
+                <p>
+                    <strong>Created at:</strong>
+                    {{ task.created_at }}
+                </p>
+
+                <p>
+                    <strong>Priority:</strong>
+                    {{ task.priority }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+
+                    {% if task.done %}
+                        Done
+                    {% else %}
+                        Not done
+                    {% endif %}
+                </p>
+
+            </div>
+        {% endfor %}
 
     </div>
 {% endblock %}
