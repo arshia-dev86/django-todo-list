@@ -11,7 +11,7 @@
 
         {% for task in tasks %}
 
-            <div class="task">
+            <div class="task {% if task.done %}completed-task{% endif %}">
 
                 <div class="task-header">
 
@@ -20,8 +20,17 @@
                     </p>
 
                     <div class="task-actions">
-                        <a href="#" class="edit-btn">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="delete-btn">Delete</a>
+
+                        {% if not task.done %}
+                            <a href="{% url 'edit_task' task.id %}" class="edit-btn">
+                                Edit
+                            </a>
+                        {% endif %}
+
+                        <a href="{% url 'delete_task' task.id %}" class="delete-btn">
+                            Delete
+                        </a>
+
                     </div>
 
                 </div>
@@ -35,7 +44,12 @@
 
                     <div class="info-item">
                         <span>Created</span>
-                        <p>{{ task.created_at }}</p>
+                        <p>{{ task.created_at|date:"d F Y - H:i" }}</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Deadline</span>
+                        <p>{{ task.deadline|date:"d F Y - H:i" }}</p>
                     </div>
 
                     <div class="info-item priority-{{ task.priority }}">

@@ -45,7 +45,12 @@
 
             <div class="delete-info-item">
                 <span>Created</span>
-                <p>{{ task.created_at }}</p>
+                <p>{{ task.created_at|date:"d F Y - H:i" }}</p>
+            </div>
+
+            <div class="delete-info-item">
+                <span>Deadline</span>
+                <p>{{ task.deadline|date:"d F Y - H:i" }}</p>
             </div>
 
         </div>

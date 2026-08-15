@@ -16,3 +16,4 @@ class Task(models.Model):
         ],
     default='medium'
     )
+    deadline = models.DateTimeField(null=True, blank=True)

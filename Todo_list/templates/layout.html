@@ -16,8 +16,8 @@
 <body>
 
     <nav>
-        <a href="/tasks">My Tasks</a>
-        <a href="add/">Add Task</a>
+        <a href="{% url 'tasks' %}">My Tasks</a>
+        <a href="{% url 'add_task' %}">Add Task</a>
     </nav>
 
     {% block content %}

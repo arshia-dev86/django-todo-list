@@ -60,6 +60,18 @@ h1 {
     transform: scale(1.02);
 }
 
+/* Completed Task */
+
+.task.completed-task {
+    background-color: #303030;
+    border-color: #3a3a3a;
+}
+
+.task.completed-task .task-title,
+.task.completed-task .task-info {
+    opacity: 0.5;
+}
+
 /* Task Header */
 
 .task-header {
@@ -80,7 +92,6 @@ h1 {
 
 .task-title.completed {
     text-decoration: line-through;
-    opacity: 0.5;
 }
 
 /* Edit & Delete Buttons */
@@ -96,6 +107,7 @@ h1 {
     border-radius: 5px;
     text-decoration: none;
     font-size: 13px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .edit-btn {
@@ -108,9 +120,22 @@ h1 {
     color: #ffffff;
 }
 
-.edit-btn:hover,
-.delete-btn:hover {
-    opacity: 0.8;
+/* Button Hover */
+
+.task-actions:has(.edit-btn:hover) .edit-btn {
+    transform: scale(1.1);
+}
+
+.task-actions:has(.edit-btn:hover) .delete-btn {
+    transform: scale(0.9);
+}
+
+.task-actions:has(.delete-btn:hover) .delete-btn {
+    transform: scale(1.1);
+}
+
+.task-actions:has(.delete-btn:hover) .edit-btn {
+    transform: scale(0.9);
 }
 
 /* Task Information */
@@ -175,7 +200,7 @@ h1 {
     color: #ff7b7b;
 }
 
-/* Add Task Form */
+/* Add & Edit Task Form */
 
 .form-container {
     width: 100%;
@@ -258,25 +283,6 @@ h1 {
     background-color: #ffffff;
 }
 
-.task-actions a {
-    transition: transform 0.2s ease;
-}
-
-.task-actions:has(.edit-btn:hover) .edit-btn {
-    transform: scale(1.1);
-}
-
-.task-actions:has(.edit-btn:hover) .delete-btn {
-    transform: scale(0.9);
-}
-
-.task-actions:has(.delete-btn:hover) .delete-btn {
-    transform: scale(1.1);
-}
-
-.task-actions:has(.delete-btn:hover) .edit-btn {
-    transform: scale(0.9);
-}
 /* Delete Task */
 
 .delete-container {
@@ -287,8 +293,6 @@ h1 {
     color: #c5c5c5;
     margin-bottom: 20px;
 }
-
-/* Task information */
 
 .delete-task-info {
     display: flex;
@@ -318,13 +322,9 @@ h1 {
     overflow-wrap: break-word;
 }
 
-/* Description takes full width */
-
 .delete-info-item:nth-child(2) {
     flex-basis: 100%;
 }
-
-/* Delete buttons */
 
 .delete-actions {
     display: flex;

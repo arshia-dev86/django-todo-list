@@ -14,12 +14,14 @@ def add_task(request):
         description= request.POST.get('description')
         done= request.POST.get('done') == 'on'
         priority= request.POST.get('priority')
+        deadline=request.POST.get('deadline') or None
 
         Task.objects.create(
                     title=title,
                     description=description,
                     priority=priority,
-                    done=done
+                    done=done,
+                    deadline=deadline
                 )
 
         return redirect('tasks')
@@ -28,5 +30,27 @@ def add_task(request):
     return render(request, 'tasks/add_task.html')
 
 def delete_task(request, task_id):
-    task= get_object_or_404(Task , id=task_id)         
+
+    task= get_object_or_404(Task , id=task_id)
+
+    if request.method == 'POST':
+        task.delete()
+        return redirect('tasks') 
+           
     return render(request, 'tasks/delete_task.html', {'task': task})
+
+def edit_task(request, task_id):
+    task= get_object_or_404(Task, id=task_id)
+    if request.method == 'POST':
+
+        task.title= request.POST.get('title')
+        task.description= request.POST.get('description')
+        task.priority= request.POST.get('priority')
+        task.done = "done" in request.POST
+        deadline = request.POST.get('deadline') or None
+        task.deadline= deadline
+
+        task.save()
+
+        return redirect("tasks")
+    return render(request, 'tasks/edit_task.html', {'task': task})

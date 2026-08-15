@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Add Task
+    Edit Task
 {% endblock %}
 
 {% block content %}
 
     <div class="form-container">
 
-        <h1>Add Task</h1>
+        <h1>Edit Task</h1>
 
         <form method="POST">
 
@@ -21,7 +21,7 @@
                     type="text"
                     id="title"
                     name="title"
-                    placeholder="Enter task title"
+                    value="{{ task.title }}"
                 >
             </div>
 
@@ -31,17 +31,29 @@
                 <textarea
                     id="description"
                     name="description"
-                    placeholder="Enter task description"
-                ></textarea>
+                >{{ task.description }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="priority">Priority</label>
 
                 <select id="priority" name="priority">
-                    <option value="low">Low</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="high">High</option>
+
+                    <option value="low"
+                        {% if task.priority == "low" %}selected{% endif %}>
+                        Low
+                    </option>
+
+                    <option value="medium"
+                        {% if task.priority == "medium" %}selected{% endif %}>
+                        Medium
+                    </option>
+
+                    <option value="high"
+                        {% if task.priority == "high" %}selected{% endif %}>
+                        High
+                    </option>
+
                 </select>
             </div>
 
@@ -52,6 +64,7 @@
                     type="datetime-local"
                     id="deadline"
                     name="deadline"
+                    value="{{ task.deadline|date:'Y-m-d\TH:i' }}"
                 >
             </div>
 
@@ -61,6 +74,7 @@
                     type="checkbox"
                     id="done"
                     name="done"
+                    {% if task.done %}checked{% endif %}
                 >
 
                 <label for="done">
@@ -70,7 +84,7 @@
             </div>
 
             <button type="submit" class="add-task-btn">
-                Add Task
+                Save Changes
             </button>
 
         </form>
