@@ -3,8 +3,21 @@ from .models import Task
 # Create your views here.
 
 def show_tasks(request):
-    tasks= Task.objects.all()
-    return render(request, 'tasks/show_tasks.html', {'tasks' : tasks})
+    filter_type = request.GET.get('filter', 'all')
+
+    if filter_type == 'active':
+        tasks = Task.objects.filter(done=False)
+
+    elif filter_type == 'completed':
+        tasks = Task.objects.filter(done=True)
+
+    else:
+        tasks = Task.objects.all()
+
+    return render(request, 'tasks/show_tasks.html', {
+        'tasks': tasks,
+        'filter_type': filter_type
+    })
 
 
 def add_task(request):
