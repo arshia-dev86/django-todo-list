@@ -16,12 +16,108 @@
 <body>
 
     <nav>
-        <a href="{% url 'tasks' %}">My Tasks</a>
-        <a href="{% url 'add_task' %}">Add Task</a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'tasks' %}">My Tasks</a>
+            <a href="{% url 'add_task' %}">Add Task</a>
+
+        </div>
+
+        {% if user.is_authenticated %}
+
+            <div class="user-actions">
+
+                <button
+                    type="button"
+                    class="logout-btn"
+                    onclick="openLogoutModal()"
+                >
+                    Logout
+                </button>
+
+                <span class="username">
+                    {{ user.username }}
+                </span>
+
+            </div>
+
+        {% endif %}
+
     </nav>
 
     {% block content %}
     {% endblock %}
+
+
+    {% if user.is_authenticated %}
+
+        <div
+            id="logoutModal"
+            class="delete-modal"
+        >
+
+            <div class="delete-modal-content">
+
+                <h2>Logout</h2>
+
+                <p>
+                    Are you sure you want to logout?
+                </p>
+
+                <div class="delete-modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-modal-btn"
+                        onclick="closeLogoutModal()"
+                    >
+                        Cancel
+                    </button>
+
+                    <form
+                        method="POST"
+                        action="{% url 'logout' %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="confirm-modal-btn"
+                        >
+                            Logout
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <script>
+
+        function openLogoutModal() {
+
+            const modal = document.getElementById("logoutModal");
+
+            modal.classList.add("show");
+        }
+
+
+        function closeLogoutModal() {
+
+            const modal = document.getElementById("logoutModal");
+
+            modal.classList.remove("show");
+        }
+
+    </script>
 
 </body>
 </html>
