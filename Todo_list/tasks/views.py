@@ -3,6 +3,8 @@ from .models import Task
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from datetime import datetime
+from django.utils import timezone
 # Create your views here.
 
 def register_view(request):
@@ -75,6 +77,12 @@ def add_task(request):
         priority= request.POST.get('priority')
         deadline=request.POST.get('deadline') or None
 
+        if deadline: 
+            deadline = datetime.strptime( deadline, '%Y-%m-%dT%H:%M' ) 
+            deadline = timezone.make_aware(deadline) 
+            if deadline < timezone.now(): 
+                return render( request, 'tasks/add_task.html', { 'error': 'Deadline cannot be in the past.' })
+
         Task.objects.create(
                     user=user,
                     title=title,
@@ -101,22 +109,38 @@ def delete_task(request, task_id):
 
 @login_required
 def edit_task(request, task_id):
-    task= get_object_or_404(Task, id=task_id, user=request.user)
+    task = get_object_or_404(
+        Task,
+        id=task_id,
+        user=request.user
+    )
+
     if request.method == 'POST':
-       
-        task.title= request.POST.get('title')
-        task.description= request.POST.get('description')
-        task.priority= request.POST.get('priority')
-        task.done = request.POST.get('done') == 'on'
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        priority = request.POST.get('priority')
+        done = request.POST.get('done') == 'on'
         deadline = request.POST.get('deadline') or None
-        task.deadline= deadline
+
+        if deadline:
+            deadline = datetime.strptime(deadline,'%Y-%m-%dT%H:%M')
+
+            deadline = timezone.make_aware(deadline)
+
+            if deadline < timezone.now():
+                return render(request,'tasks/edit_task.html',{'task': task,'error': 'Deadline cannot be in the past.'})
+
+        task.title = title
+        task.description = description
+        task.priority = priority
+        task.done = done
+        task.deadline = deadline
 
         task.save()
 
-        return redirect("tasks")
-    return render(request, 'tasks/edit_task.html', {'task': task})
+        return redirect('tasks')
 
-
+    return render(request,'tasks/edit_task.html',{'task': task})
 
 @login_required
 def complete_task(request, task_id):
